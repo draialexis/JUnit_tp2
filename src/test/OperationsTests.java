@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,14 +13,24 @@ import fr.iut.uca.Operations;
 class OperationsTests {
 
 	private Operations op;
+	private static Random rdm;
+	
+	@BeforeAll
+	static void initAll() {
+		rdm = new Random();
+	}
 	
 	@BeforeEach 
-    void init() {
+    void initEach() {
 		op = new Operations();
     }
 	
+	// --------------
+	// add
+	// --------------
+	
 	@Test
-	void basicAdd() {
+	void addBasic() {
 		// Arrange
 	
 		long x = 1;
@@ -36,7 +47,7 @@ class OperationsTests {
 	}
 	
 	@Test
-	void beyondMax() {
+	void addBeyondMax() {
 		// Arrange
 		
 		long x = Long.MAX_VALUE;
@@ -53,7 +64,7 @@ class OperationsTests {
 	}
 
 	@Test
-	void belowMin() {
+	void addBelowMin() {
 		// Arrange
 		
 		long x = Long.MIN_VALUE;
@@ -70,7 +81,7 @@ class OperationsTests {
 	}
 	
 	@Test
-	void allZeros() {
+	void addAllZeros() {
 		// Arrange
 		
 		long x = 0;
@@ -87,7 +98,7 @@ class OperationsTests {
 	}
 	
 	@Test 
-	void withZeroLeft() {
+	void addWithZeroLeft() {
 		// Arrange
 		
 		long x = 0;
@@ -104,7 +115,7 @@ class OperationsTests {
 	}
 	
 	@Test 
-	void withZeroRight() {
+	void addWithZeroRight() {
 		// Arrange
 		
 		long x = 4; 
@@ -121,7 +132,7 @@ class OperationsTests {
 	}
 	
 	@Test 
-	void allNegatives() {
+	void addAllNegatives() {
 		// Arrange
 		
 		long x = -3;
@@ -138,7 +149,7 @@ class OperationsTests {
 	}
 	
 	@Test 
-	void oppositesCancelOut() {
+	void addOppositesCancelOut() {
 		// Arrange
 		
 		long x = -4;
@@ -155,7 +166,7 @@ class OperationsTests {
 	}
 	
 	@Test 
-	void manyNumbers() {
+	void addManyNumbers() {
 		// Arrange
 		
 		long x = 1;
@@ -175,8 +186,7 @@ class OperationsTests {
 	}
 	
 	@Test
-	void rdm() {
-		Random rdm = new Random();
+	void addRdm() {
 		
 		for(int i = 0 ; i <10; i++) {
 			// Arrange
@@ -205,4 +215,184 @@ class OperationsTests {
 			assertEquals(expected, actual);
 		}
 	}
+	
+	// --------------
+	// multiply
+	// --------------
+	
+	@Test 
+	void multBasic() {
+		// Arrange
+		
+		long x = 2;
+		long y = 3;
+		long expected = 6;
+		
+		// Act
+		
+		long actual = op.multiply(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	@Test 
+	void multWithOne() {
+		// Arrange
+		
+		long x = 8;
+		long y = 1;
+		long expected = 8;
+		
+		// Act
+		
+		long actual = op.multiply(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	
+	@Test 
+	void multWithZero() {
+		// Arrange
+		
+		long x = 0;
+		long y = 2;
+		long expected = 0;
+		
+		// Act
+		
+		long actual = op.multiply(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	
+	@Test 
+	void multWithNegLeft() {
+		// Arrange
+		
+		long x = 4;
+		long y = -2;
+		long expected = -8;
+		
+		// Act
+		
+		long actual = op.multiply(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	
+	@Test 
+	void multWithNegRight() {
+		// Arrange
+		
+		long x = -7;
+		long y = 4;
+		long expected = -28;
+		
+		// Act
+		
+		long actual = op.multiply(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	@Test 
+	void multWithMany() {
+		// Arrange
+		
+		long x = 1;
+		long y = 2;
+		long z1 = 3;
+		long z2 = 4;
+		long z3 = 5;
+		long expected = 120;
+		
+		// Act
+		
+		long actual = op.multiply(x, y, z1, z2, z3);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void multRdmEquals() {
+		Random rdm = new Random();
+		
+		for(int i = 0 ; i <10; i++) {
+			// Arrange
+		
+			long rdmX = rdm.nextLong();
+			long rdmY = rdm.nextLong();
+		
+			long expected;
+		
+			if(rdmX == 1) {
+				expected = rdmY;
+			} else if(rdmY == 1) {
+				expected = rdmX;
+			} else if(rdmX == 0) {
+				expected = 0;
+			} else if(rdmY == 0) {
+				expected = 0;
+			} else {
+				expected = rdmX * rdmY;
+			}
+		
+			// Act
+		
+			long actual = op.multiply(rdmX, rdmY, null);
+		
+			// Assert
+		
+			assertEquals(expected, actual);
+		}
+	}
+	
+	@Test
+	void multRdmIntervals() {
+		
+		for(int i = 0 ; i < 10 ; i++) {
+			// Arrange
+		
+			long right = 3037000500L;
+			long left = -3037000499L;
+			
+			long rdmX = rdm.nextLong(left, right);
+			long rdmY = rdm.nextLong(left, right);
+		
+			// Act
+		
+			long actual = op.multiply(rdmX, rdmY, null);
+		
+			// Assert
+		
+			if((rdmX > 0 && rdmY > 0)
+					|| (rdmX < 0 && rdmY < 0)) {
+					assertTrue(actual > 0);
+				} else if((rdmX < 0 && rdmY > 0)
+						|| (rdmX > 0 && rdmY < 0)) {
+					assertTrue(actual < 0);
+				} else { // rdmX == 0 || rdmY == 0
+					assertTrue(actual == 0);
+				}
+		}
+	}
+	
+	// --------------
+	// divide
+	// --------------
 }

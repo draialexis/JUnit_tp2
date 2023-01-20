@@ -23,7 +23,7 @@ public class Operations {
 				res *= num;
 		    }
 		}
-		
+		System.out.println(res);
 		return res;
 	}
 
