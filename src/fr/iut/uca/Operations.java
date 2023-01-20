@@ -1,7 +1,7 @@
 package fr.iut.uca;
 
 public class Operations {
-	public long Add(long a, long b, long... others) {
+	public long add(long a, long b, long... others) {
 
 		long res = a + b;
 		
@@ -14,7 +14,7 @@ public class Operations {
 		return res;
 	}
 	
-	public long Multiply(long a, long b, long... others) {
+	public long multiply(long a, long b, long... others) {
 
 		long res = a * b;
 
@@ -27,7 +27,7 @@ public class Operations {
 		return res;
 	}
 
-	public long Divide(long a, long b, long... others) {
+	public long divide(long a, long b, long... others) {
 		if(b == 0) {
 			throw new ArithmeticException("attempted to divide by zero");
 		}
@@ -44,6 +44,18 @@ public class Operations {
 		}
 		    
 		return res;
+	}
+	
+	public boolean pythagoras(long a, long b, long c) {
+		if(a <= 0 || b <= 0 || c <= 0) {
+			throw new ArithmeticException("there is no such thing as a negative length for a triangle's side");
+		}
+		
+		return (
+				(a * a) + (b * b) == c * c
+				|| (c * c) + (b * b) == a * a
+				|| (a * a) + (c * c) == b * b
+				);
 	}
 	
 }

@@ -28,7 +28,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, null);
+		long actual = op.add(x, y, null);
 		
 		// Assert
 
@@ -45,7 +45,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, null);
+		long actual = op.add(x, y, null);
 		
 		// Assert
 
@@ -62,7 +62,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, null);
+		long actual = op.add(x, y, null);
 		
 		// Assert
 
@@ -79,7 +79,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, null);
+		long actual = op.add(x, y, null);
 		
 		// Assert
 
@@ -96,7 +96,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, null);
+		long actual = op.add(x, y, null);
 		
 		// Assert
 
@@ -113,7 +113,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, null);
+		long actual = op.add(x, y, null);
 		
 		// Assert
 
@@ -130,7 +130,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, null);
+		long actual = op.add(x, y, null);
 		
 		// Assert
 
@@ -147,7 +147,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, null);
+		long actual = op.add(x, y, null);
 		
 		// Assert
 
@@ -167,7 +167,7 @@ class OperationsTests {
 		
 		// Act
 		
-		long actual = op.Add(x, y, z1, z2, z3);
+		long actual = op.add(x, y, z1, z2, z3);
 		
 		// Assert
 
@@ -176,10 +176,11 @@ class OperationsTests {
 	
 	@Test
 	void rdm() {
+		Random rdm = new Random();
+		
 		for(int i = 0 ; i <10; i++) {
 			// Arrange
 		
-			Random rdm = new Random();
 			long rdmX =rdm.nextLong();
 			long rdmY = rdm.nextLong();
 		
@@ -197,7 +198,7 @@ class OperationsTests {
 		
 			// Act
 		
-			long actual = op.Add(rdmX, rdmY, null);
+			long actual = op.add(rdmX, rdmY, null);
 		
 			// Assert
 		
