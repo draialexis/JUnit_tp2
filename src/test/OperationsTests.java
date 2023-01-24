@@ -368,7 +368,7 @@ class OperationsTests {
 		for(int i = 0 ; i < 10 ; i++) {
 			// Arrange
 		
-			long right = 3037000500L;
+			long right = 3037000500L; // square root of 2^64, to avoid going beyond max_long or below min_long
 			long left = -3037000499L;
 			
 			long rdmX = rdm.nextLong(left, right);
@@ -395,4 +395,6 @@ class OperationsTests {
 	// --------------
 	// divide
 	// --------------
+	
+	
 }
