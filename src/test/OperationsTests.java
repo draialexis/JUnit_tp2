@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
@@ -396,5 +397,76 @@ class OperationsTests {
 	// divide
 	// --------------
 	
+	@Test
+	void divBasic() {
+		// Arrange
+		
+		long x = 4;
+		long y = 2;
+		long expected = 2;
+		
+		// Act
+		
+		long actual = op.divide(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
 	
+	@Test
+	void divWithRemainder() {
+		// Arrange
+		
+		long x = 6;
+		long y = 4;
+		long expected = 1; // would be 1.5 with real numbers
+		
+		// Act
+		
+		long actual = op.divide(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void divByZero() {
+		// Arrange
+		
+		long x = 4;
+		
+		// Act
+		
+		long y = 0;
+
+		// Assert
+
+		Exception exc = assertThrows(ArithmeticException.class, () -> {
+			op.divide(x, y, null);
+		});
+		assertEquals(exc.getMessage(), "attempted to divide by zero");
+	}
+	
+	@Test
+	void divByZeroVariadic() {
+		// Arrange
+		
+		long x = 4;
+		long y = 2;
+		long z1 = 3;
+		long z3 = 5;
+
+		// Act 
+		
+		long z2 = 0;
+		
+		// Assert
+
+		Exception exc = assertThrows(ArithmeticException.class, () -> {
+			op.divide(x, y, z1, z2, z3);
+		});
+		assertEquals(exc.getMessage(), "attempted to divide by zero");
+	}
 }
