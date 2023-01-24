@@ -469,4 +469,64 @@ class OperationsTests {
 		});
 		assertEquals(exc.getMessage(), "attempted to divide by zero");
 	}
+	
+	@Test
+	void divWithNegRight() {
+		// Arrange
+		
+		long x = 12;
+		long y = -3;
+		long expected = -4;
+		
+		// Act
+		
+		long actual = op.divide(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void divWithNegLeft() {
+		// Arrange
+		
+		long x = -12;
+		long y = 6;
+		long expected = -2;
+		
+		// Act
+		
+		long actual = op.divide(x, y, null);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+
+	
+	@Test
+	void divWithMany() {
+		// Arrange
+		
+		long x = 12;
+		long y = 2;
+		long z1 = 2;
+		long z2 = 1;
+		long expected = 3;
+		
+		// Act
+		
+		long actual = op.divide(x, y, z1, z2);
+		
+		// Assert
+
+		assertEquals(expected, actual);
+	}
+	
+	// --------------
+	// pythagoras
+	// --------------
+	
+	
 }

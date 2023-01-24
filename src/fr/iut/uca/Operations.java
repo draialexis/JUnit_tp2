@@ -39,7 +39,7 @@ public class Operations {
 		        if(num == 0) {
 		        	throw new ArithmeticException("attempted to divide by zero");
 		        }
-		        res *= num;
+		        res /= num;
 		    }
 		}
 		    
