@@ -8,6 +8,8 @@ import java.util.Random;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import fr.iut.uca.Operations;
 
@@ -331,7 +333,6 @@ class OperationsTests {
 	
 	@Test
 	void multRdmEquals() {
-		Random rdm = new Random();
 		
 		for(int i = 0 ; i <10; i++) {
 			// Arrange
@@ -339,7 +340,7 @@ class OperationsTests {
 			long rdmX = rdm.nextLong();
 			long rdmY = rdm.nextLong();
 		
-			long expected;
+			long expected = 0;
 		
 			if(rdmX == 1) {
 				expected = rdmY;
@@ -524,9 +525,90 @@ class OperationsTests {
 		assertEquals(expected, actual);
 	}
 	
+	@Test
+	void divRdmEquals() {
+		
+		for(int i = 0 ; i <10; i++) {
+			// Arrange
+		
+			long rdmX = rdm.nextLong();
+			long rdmY = rdm.nextLong();
+		
+			long expected = 0;
+		
+			if(rdmX == rdmY) {
+				expected = 1;
+			} else if(rdmY == 1) {
+				expected = rdmX;
+			} else if(rdmX == 0) {
+				expected = 0;
+			} else if(rdmY == 0) {
+				rdmY = 42; // keeping it simple but avoiding x/0
+			} else {
+				expected = rdmX / rdmY;
+			}
+		
+			// Act
+		
+			long actual = op.divide(rdmX, rdmY, null);
+		
+			// Assert
+		
+			assertEquals(expected, actual);
+		}
+	}
+	
+	@Test
+	void divRdmIntervals() {
+		
+		for(int i = 0 ; i < 10 ; i++) {
+			// Arrange
+			
+			long rdmX = rdm.nextLong();
+			long rdmY = rdm.nextLong();
+			if(rdmY == 0) { rdmY = 42; } // keeping it simple but avoiding x/0
+		
+			// Act
+		
+			long actual = op.divide(rdmX, rdmY, null);
+		
+			// Assert
+		
+			if((rdmX > 0 && rdmY > 0)
+					|| (rdmX < 0 && rdmY < 0)) {
+					assertTrue(actual >= 0);
+				} else {
+					assertTrue(actual <= 0);
+				} 
+		}
+	}
+	
 	// --------------
 	// pythagoras
 	// --------------
 	
+	@ParameterizedTest
+	@ArgumentsSource(pythBasicArgumentsProvider.class)
+	void pythBasic(long x, long y, long z) {
+		assertTrue(op.pythagoras(x, y, z));
+	}
+	
+	@ParameterizedTest
+	@ArgumentsSource(pythNegArgumentsProvider.class)
+	void pythNeg(long x, long y, long z) {
+		Exception exc = assertThrows(ArithmeticException.class, () -> {
+			op.pythagoras(x, y, z);
+		});
+		
+		assertEquals(exc.getMessage(), "there is no such thing as a negative length");
+	}
+	
+	@ParameterizedTest
+	@ArgumentsSource(pythNonRectArgumentsProvider.class)
+	void pythNonRect(long x, long y, long z) {
+		assertFalse(op.pythagoras(x, y, z));
+	}
+	
+	//TODO add math seed
 	
 }

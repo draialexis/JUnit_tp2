@@ -48,7 +48,7 @@ public class Operations {
 	
 	public boolean pythagoras(long a, long b, long c) {
 		if(a <= 0 || b <= 0 || c <= 0) {
-			throw new ArithmeticException("there is no such thing as a negative length for a triangle's side");
+			throw new ArithmeticException("there is no such thing as a negative length");
 		}
 		
 		return (
